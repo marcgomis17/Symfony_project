@@ -1,0 +1,50 @@
+{% extends "layouts/dashboard.html.twig" %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/dashboard-home.css') }}">
+{% endblock %}
+
+{% block title %}
+{{ current_page}}
+{% endblock %}
+
+{% block view %}
+<div id="home-dashboard" class="container">
+    <div id="cards-container">
+        <div class="card text-center" style="width: 22rem;">
+            <div class="card-body">
+                <div class="img-container">
+                    <img src="{{ asset('images/icons/reading-book.svg') }}" alt="" class="card-icon">
+                </div>
+                <div class="text-container">
+                    <h2 class="stat-number">{{ nbEtudiants }}</h2>
+                    <h4>Etudiants</h4>
+                </div>
+            </div>
+        </div>
+        <div class="card text-center" style="width: 22rem;">
+            <div class="card-body">
+                <div class="img-container">
+                    <img src="{{ asset('images/icons/teacher-outline.svg') }}" alt="" class="card-icon">
+                </div>
+                <div class="text-container">
+                    <h2 class="stat-number">{{ nbProfs }}</h2>
+                    <h4>Professeurs</h4>
+                </div>
+            </div>
+        </div>
+        <div class="card text-center" style="width: 22rem;">
+            <div class="card-body">
+                <div class="img-container">
+                    <img src="{{ asset('images/icons/class-outline.svg') }}" alt="" class="card-icon">
+                </div>
+                <div class="text-container">
+                    <h2 class="stat-number">{{ nbClasses }}</h2>
+                    <h4>Classes</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

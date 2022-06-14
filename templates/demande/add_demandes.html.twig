@@ -1,0 +1,31 @@
+{% extends "layouts/dashboard.html.twig" %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('styles/add-prof.css') }}">
+{% endblock %}
+
+{% block title %}
+	{{ current_page}}
+{% endblock %}
+
+{% block view %}
+	<div id="form-wrapper" class="view container">
+		<form id="add-form" method="post" action="<?= $Constants::WEB_ROOT . 'add-demande' ?>">
+			<fieldset class="border p-4" id="infos-prof">
+				<legend class="float-none w-auto p-1">Demande</legend>
+				<select class="form-select" name="objet_demande" aria-label="select" id="objet-demande">
+					<option value="" selected>--- Objet de la demande ---</option>
+					<option value="Suspension">Suspension</option>
+					<option value="Annulation">Annulation</option>
+				</select>
+				<div class="mb-3" id="second">
+					<label for="motif-field" class="form-label">Motif</label>
+					<textarea class="form-control" name="motif_demande" id="motif-field" rows="3"></textarea>
+				</div>
+			</fieldset>
+			<div id="submit-container">
+				<button type="submit" class="btn btn-primary add-btn" id="add-prof-btn">Envoyer</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}

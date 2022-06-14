@@ -2,19 +2,15 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use App\Repository\RPRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
 
-#[ORM\Entity(repositoryClass: RPRepository::class)]
-class RP
-{
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+#[Entity(repositoryClass: RPRepository::class)]
+#[InheritanceType("JOINED")]
+#[DiscriminatorColumn(name: "discr", type: "string")]
+class RP extends User {
 }

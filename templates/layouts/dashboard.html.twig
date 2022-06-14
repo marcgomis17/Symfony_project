@@ -6,10 +6,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ asset('styles/bootstrap/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{{ asset('styles/dashboard.css') }}">
-        <link rel="stylesheet" href="{{ asset('styles/global.css') }}">
-        {% block stylesheets %}{% endblock %}
-        <title>Dashboard | {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('styles/global.css') }}"> {% block stylesheets %}{% endblock %}
+        <title>Dashboard |
+            {% block title %}{% endblock %}
+        </title>
     </head>
 
     <body>
@@ -33,87 +35,83 @@
             </header>
             <div id="dashboard-menu-icons">
                 <div id="menu-header" class="offcanvas-header">
-                    <div id="admin-profile">
-
-                    </div>
+                    <div id="admin-profile"></div>
                 </div>
                 <ul id="dashboard-icons-list" class="menu-list">
-                    <a href="">
-                        <li class="list-item"><img src="" alt="" class="icon"></li>
+                    <a href="{{ path('app_dashboard_home_admin', [], false) }}">
+                        <li class="list-item"><img src="{{ asset('images/icons/grid-fill.svg') }}" alt="" class="icon"></li>
                     </a>
-                    <?php if ($Role::isRP()) : ?>
-                    <a href="">
-                        <li class="list-item"><img src="" alt="" class="icon"></li>
+                    {# <?php if ($Role::isRP()) : ?> #}
+                    <a href="{{ path('app_professeur', [], false) }}">
+                        <li class="list-item"><img src="{{ asset('images/icons/teacher.svg') }}" alt="" class="icon"></li>
                     </a>
-                    <?php endif ?>
-                    <?php if ($Role::isRP()) : ?>
-                    <a href="">
-                        <li class="list-item"><img src="" alt="" class="icon"></li>
+                    {# <?php endif ?>
+					                    <?php if ($Role::isRP()) : ?> #}
+                    <a href="{{ path('app_classe', [], false) }}">
+                        <li class="list-item"><img src="{{ asset('images/icons/class.svg') }}" alt="" class="icon"></li>
                     </a>
-                    <?php endif ?>
-                    <?php if ($Role::isRP()) : ?>
-                    <a href="">
-                        <li class="list-item"><img src="" alt="" class="icon"></li>
+                    {# <?php endif ?>
+					                    <?php if ($Role::isRP()) : ?> #}
+                    <a href="{{ path('app_module', [], false) }}">
+                        <li class="list-item"><img src="{{ asset('images/icons/book.svg') }}" alt="" class="icon"></li>
                     </a>
-                    <?php endif ?>
-                    <?php if ($Role::isAC()) : ?>
+                    {# <?php endif ?>
+					                    <?php if ($Role::isAC()) : ?> #}
                     <a href="">
-                        <li class="list-item"><img src="" alt="" class="icon"></li>
+                        <li class="list-item"><img src="{{ asset('images/icons/person-plus-fill.svg') }}" alt="" class="icon"></li>
                     </a>
-                    <?php endif ?>
-                    <?php if ($Role::isRP() || $Role::isEtudiant()) : ?>
-                    <a href="">
-                        <li class="list-item"><img src="" alt="" class="icon"></li>
+                    {# <?php endif ?>
+					                    <?php if ($Role::isRP() || $Role::isEtudiant()) : ?> #}
+                    <a href="{{ path('app_demande', [], false) }}">
+                        <li class="list-item"><img src="{{ asset('images/icons/contract.svg') }}" alt="" class="icon"></li>
                     </a>
-                    <?php endif ?>
+                    {# <?php endif ?> #}
                 </ul>
             </div>
             <i id="side-menu-toggler" data-bs-toggle="offcanvas" data-bs-target="#side-menu" aria-controls="side-menu" class="fa-solid fa-chevron-right"></i>
             <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="side-menu" aria-labelledby="side-menuLabel">
                 <div class="offcanvas-header">
-                    <div id="admin-profile">
-
-                    </div>
+                    <div id="admin-profile"></div>
                     <i id="side-menu-close-btn" data-bs-dismiss="offcanvas" aria-label="Close" class="fa-solid fa-chevron-left fa-lg"></i>
                 </div>
                 <div class="offcanvas-body">
                     <ul id="dashboard-menu" class="menu-list">
                         <li class="menu-item">Home</li>
-                        <?php if ($Role::isRP()) : ?>
+                        {# <?php if ($Role::isRP()) : ?> #}
                         <a href="">
                             <li class="menu-item">Professeurs</li>
                         </a>
-                        <?php endif ?>
-                        <?php if ($Role::isRP()) : ?>
-                        <a href="{{ path('app_classe', [], relative = false) }}">
+                        {# <?php endif ?>
+						                        <?php if ($Role::isRP()) : ?> #}
+                        <a href="{{ path('app_classe', [], false) }}">
                             <li class="menu-item">Classes</li>
                         </a>
-                        <?php endif ?>
-                        <?php if ($Role::isRP()) : ?>
-                        <a href="">
+                        {# <?php endif ?>
+						                        <?php if ($Role::isRP()) : ?> #}
+                        <a href="{{ path('app_classe', [], false) }}">
                             <li class="menu-item">Modules</li>
                         </a>
-                        <?php endif ?>
-                        <?php if ($Role::isAC()) : ?>
+                        {# <?php endif ?>
+						                        <?php if ($Role::isAC()) : ?> #}
                         <a href="">
                             <li class="menu-item">Inscriptions</li>
                         </a>
-                        <?php endif ?>
-                        <?php if ($Role::isRP() || $Role::isEtudiant()) : ?>
-                        <a href="">
+                        {# <?php endif ?>
+						                        <?php if ($Role::isRP() || $Role::isEtudiant()) : ?> #}
+                        <a href="{{ path('app_demande', [], false) }}">
                             <li class="menu-item">Demandes</li>
                         </a>
-                        <?php endif ?>
+                        {# <?php endif ?> #}
                     </ul>
                 </div>
             </div>
             <div id="view-container">
                 <!-- <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" id="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Ajouter professeur</li>
-                </ol>
-            </nav> -->
+				                <ol class="breadcrumb">
+				                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+				                    <li class="breadcrumb-item active" aria-current="page">Ajouter professeur</li>
+				                </ol>
+				            </nav> -->
                 {% block view %}{% endblock %}
             </div>
         </div>

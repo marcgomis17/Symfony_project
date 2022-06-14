@@ -26,11 +26,7 @@ class Classe {
     #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Inscription::class)]
     private $inscriptions;
 
-    #[ORM\ManyToMany(targetEntity: Professeur::class, inversedBy: 'classes')]
-    private $professeurs;
-
     public function __construct() {
-        $this->professeurs = new ArrayCollection();
         $this->inscriptions = new ArrayCollection();
     }
 
@@ -91,27 +87,6 @@ class Classe {
                 $inscription->setClasse(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Professeur>
-     */
-    public function getProfesseurs(): Collection {
-        return $this->professeurs;
-    }
-
-    public function addProfesseur(Professeur $professeur): self {
-        if (!$this->professeurs->contains($professeur)) {
-            $this->professeurs[] = $professeur;
-        }
-
-        return $this;
-    }
-
-    public function removeProfesseur(Professeur $professeur): self {
-        $this->professeurs->removeElement($professeur);
 
         return $this;
     }

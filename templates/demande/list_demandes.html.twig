@@ -1,0 +1,72 @@
+{% extends "layouts/dashboard.html.twig" %}
+
+{% block title %}
+{{ current_page}}
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/liste-classes.css') }}">
+{% endblock %}
+
+{% block view %}
+
+<div id="list" class="view container">
+    <div id="filter-add">
+        <!-- <select name="filter-modules" id="filter-modules" class="form-control">
+            <option value="">--- Selectionner Un Module ---</option>
+        </select> -->
+        {# <?php if ($Role::isEtudiant()) : ?> #}
+        <a href="{{ path('app_demande_add', [], false) }}"><button type="button" class="btn btn-primary add-btn">+ Ajouter</button></a>
+        {# <?php endif ?> #}
+    </div>
+    <div id="table-wrapper">
+        <h2>Liste des demandes</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">N°</th>
+                    {# <?php if ($Role::isRP()) : ?> #}
+                    <th scope="col">Matricule</th>
+                    <th scope="col">Nom Etudiant</th>
+                    {# <?php endif ?> #}
+                    <th scope="col">Objet</th>
+                    <th scope="col">Motif</th>
+                    {# <?php if ($Role::isEtudiant()) : ?> #}
+                    <th scope="col">Etat</th>
+                    {# <?php endif ?> #}
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, demande in demandes %}
+                <tr>
+                    <th scope="row">{{ key }}</th>
+                    {# <?php if ($Role::isRP()) : ?> #}
+                    <td>{{ demande.matricule }}</td>
+                    <td>{{ demande.nom_complet }}</td>
+                    {# <?php endif ?> #}
+                    <td>{{ demande.objet_demande }}</td>
+                    <td>{{ demande.motif_demande }}</td>
+                    {# <?php if ($Role::isEtudiant()) : ?> #}
+                    <td>{{ demande.etat }}</td>
+                    {# <?php endif ?> #}
+                    {# <?php if ($Role::isRP()) : ?> #}
+                    <td class="actions">
+                        <form action="{# <?= $Constants::WEB_ROOT . 'edit-module' ?> #}" method="post">
+                            <input type="hidden" name="id" value="{{ demande.id_demande }}">
+                            <button class="btn btn-success" type="submit" class="action-btn"><span><img class="action-icon" src="{{ asset('images/icons/accept.svg') }}"></span>Accepter</button>
+                        </form>
+                        <form action="<?= $Constants::WEB_ROOT . 'delete-module' ?>" method="post">
+                            <input type="hidden" name="id" value="{{ demande.id_demande }}">
+                            <button class="btn btn-danger" type="submit" class="action-btn"><span><img class="action-icon" src="{{ asset('images/icons/cancel.svg') }}"></span>Refuser</button>
+                        </form>
+                    </td>
+                    {# <?php endif ?> #}
+                </tr>
+                {% endfor %}
+                {# <?php endforeach ?> #}
+            </tbody>
+        </table>
+    </div>
+    <div class="navigation">{{ knp_pagination_render(demandes, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}</div>
+</div>
+{% endblock %}

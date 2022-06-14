@@ -1,0 +1,30 @@
+#home-dashboard {
+	padding: 12% 0% 0% 7%;
+}
+
+#cards-container {
+	display: flex;
+	column-gap: 4%;
+}
+
+.card {
+	background-color: #589afe;
+	color: #fff;
+}
+
+.card-icon {
+	height: 50px;
+	width: 100%;
+}
+
+.img-container {
+	background-color: #fff;
+	margin: 5% 33%;
+	padding: 8% 2%;
+	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.stat-number{
+	font-weight: bold;
+	margin-top: 5vh;
+}

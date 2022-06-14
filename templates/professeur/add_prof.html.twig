@@ -1,0 +1,54 @@
+{% extends "layouts/dashboard.html.twig" %}
+
+{% block title %} {{ current_page }} {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/add-prof.css') }}">
+{% endblock %}
+
+{% block view %}
+
+<div id="form-wrapper" class="view container">
+    <form id="add-form" method="post" action="">
+        <fieldset class="border p-4" id="infos-prof">
+            <legend class="float-none w-auto p-1">Infos Professeur</legend>
+            <div class="form-floating mb-3">
+                <input type="text" name="nom_complet" class="form-control" id="name-field" placeholder="Nom Complet">
+                <label for="name-field">Nom Complet</label>
+            </div>
+            <div class="form-floating" id="second">
+                <input type="text" name="grade" class="form-control" id="grade-field" placeholder="Grade">
+                <label for="grade-field">Grade</label>
+            </div>
+        </fieldset>
+        <div id="classes-modules">
+            <fieldset id="classes" class="border p-4">
+                <legend class="float-none w-auto p-1">Classes</legend>
+                <div class="list">
+                    {# <?php foreach ($dbr['classes'] as $classe) : ?> #}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="<?= $classe->id_classe ?>" id="<?= 'classe-check-' . $classe->id_classe ?>">
+                        <label class="form-check-label" for="<?= 'classe-check-' . $classe->id_classe ?>">{# <?= $classe->nom_classe ?> #}</label>
+                    </div>
+                    {# <?php endforeach ?> #}
+                </div>
+            </fieldset>
+            <fieldset id="classes" class="border p-4">
+                <legend class="float-none w-auto p-1">Modules</legend>
+                <div class="list">
+                    {# <?php foreach ($dbr['modules'] as $module) : ?> #}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{# {{ module.id_module }} #}" id="<?= 'module-check-' . $module->id_module ?>">
+                        <label class="form-check-label" for="<?= 'module-check-' . $module->id_module ?>">{# <?= $module->nom_module ?> #}</label>
+                    </div>
+                    {# <?php endforeach ?> #}
+                </div>
+            </fieldset>
+        </div>
+        <div id="submit-container">
+            <a href="{# <?= $Constants::WEB_ROOT . 'add-professeur' ?> #}"><button type="button" class="btn btn-primary add-btn" id="add-prof-btn">Ajouter</button></a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
