@@ -1,0 +1,29 @@
+.actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	column-gap: 10%;
+}
+
+.action-btn {
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+}
+
+.action-icon {
+	height: auto;
+	width: 20px;
+	filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(108deg)
+		brightness(104%) contrast(104%);
+	margin-right: 7px;
+}
+
+th,
+td {
+	vertical-align: middle;
+}
+
+.edit-form {
+	display: flex;
+}

@@ -1,0 +1,16 @@
+* {
+	box-sizing: border-box;
+}
+
+.container-fluid {
+	margin: 0;
+	padding: 0;
+}
+
+.add-btn {
+	font-weight: bold;
+}
+
+#table-wrapper {
+	margin-top: 3%;
+}
