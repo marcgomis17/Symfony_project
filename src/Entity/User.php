@@ -5,10 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[Entity(repositoryClass: UserRepository::class)]
+#[InheritanceType("JOINED")]
+#[DiscriminatorColumn(name: "discr", type: "string")]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User extends Personne implements UserInterface, PasswordAuthenticatedUserInterface {
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;

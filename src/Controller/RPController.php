@@ -3,35 +3,40 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
-use App\Form\AddClasseType;
 use App\Form\ClasseType;
+use App\Entity\Professeur;
+use App\Form\ProfesseurType;
 use App\Repository\ClasseRepository;
-use App\Repository\DemandeRepository;
 use App\Repository\ModuleRepository;
+use App\Repository\DemandeRepository;
 use App\Repository\ProfesseurRepository;
-use Doctrine\DBAL\Types\TextType;
 use Knp\Component\Pager\PaginatorInterface;
-use PhpParser\Node\Stmt\Label;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class RPController extends AbstractController {
-    #[Route('/professeur', name: 'app_professeur')]
+    #[Route('/professeur', name: 'app_professeur_rp')]
     public function listProfs(ProfesseurRepository $repo, PaginatorInterface $paginator, Request $request): Response {
         $currentPage = "Liste Professeurs";
-        // dd($repo->findBy([], ['id' => 'desc']));
         $data = $repo->findBy([], ['id' => 'desc']);
         $professeurs = $paginator->paginate($data, $request->query->getInt('page', 1), 5);
         $professeurs->setCustomParameters(['align' => 'right']);
         return $this->render('professeur/list_profs.html.twig', ['current_page' => $currentPage, 'professeurs' => $professeurs]);
     }
 
-    #[Route('/professeur/add', name: 'app_professeur_add')]
-    public function addProfs(ProfesseurRepository $repo, PaginatorInterface $paginator, Request $request): Response {
+    #[Route('/professeur/add', name: 'app_professeur_add_rp')]
+    public function addProfs(Request $request, ProfesseurRepository $repo): Response {
         $currentPage = "Ajouter un Professeur";
-        return $this->render('professeur/add_prof.html.twig', ['current_page' => $currentPage]);
+        $form = $this->createForm(ProfesseurType::class, new Professeur());
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $prof = $form->getData();
+            $repo->add($prof, true);
+            return $this->redirectToRoute('app_professeur_rp');
+        }
+        return $this->render('professeur/add_prof.html.twig', ['current_page' => $currentPage, 'form' => $form->createView()]);
     }
 
     #[Route('/classe', name: 'app_classe')]
@@ -44,12 +49,16 @@ class RPController extends AbstractController {
     }
 
     #[Route('/classe/add', name: 'app_classe_add')]
-    public function addClasse(): Response {
+    public function addClasse(Request $request, ClasseRepository $repo): Response {
         $currentPage = "Ajout de classe";
-        $classe = new Classe();
         $form = $this->createForm(ClasseType::class, new Classe());
-        return $this->renderForm('classe/add_classe.html.twig', ['form' => $form, 'current_page' => $currentPage]);
-        // return $this->render('classe/add_classe.html.twig', );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $classe = $form->getData();
+            $repo->add($classe, true);
+            return $this->redirectToRoute('app_classe');
+        }
+        return $this->render('classe/add_classe.html.twig', ['form' => $form->createView(), 'current_page' => $currentPage]);
     }
 
     #[Route('/module', name: 'app_module')]
@@ -68,11 +77,5 @@ class RPController extends AbstractController {
         $demandes = $paginator->paginate($data, $request->query->getInt('page', 1), 5);
         $demandes->setCustomParameters(['align' => 'right']);
         return $this->render('demande/list_demandes.html.twig', ['current_page' => $currentPage, 'demandes' => $demandes]);
-    }
-
-    #[Route('/demande/add', name: 'app_demande_add')]
-    public function addDemande(): Response {
-        $currentPage = "Formuler une demande";
-        return $this->render('demande/add_demandes.html.twig', ['current_page' => $currentPage]);
     }
 }

@@ -278,7 +278,7 @@
         "version": "v6.1.0"
     },
     "symfony/security-http": {
-        "version": "v6.1.0"
+        "version": "v6.1.1"
     },
     "symfony/service-contracts": {
         "version": "v3.1.0"

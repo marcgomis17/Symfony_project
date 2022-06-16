@@ -26,8 +26,17 @@ class Classe {
     #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Inscription::class)]
     private $inscriptions;
 
+    #[ORM\ManyToMany(targetEntity: Professeur::class, mappedBy: 'classes')]
+    private $professeurs;
+
+    #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Etudiant::class)]
+    private $Etudiants;
+
     public function __construct() {
         $this->inscriptions = new ArrayCollection();
+        $this->professeurs = new ArrayCollection();
+        $this->etudiants = new ArrayCollection();
+        $this->Etudiants = new ArrayCollection();
     }
 
     public function getId(): ?int {
@@ -85,6 +94,60 @@ class Classe {
             // set the owning side to null (unless already changed)
             if ($inscription->getClasse() === $this) {
                 $inscription->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Professeur>
+     */
+    public function getProfesseurs(): Collection {
+        return $this->professeurs;
+    }
+
+    public function addProfesseur(Professeur $professeur): self {
+        if (!$this->professeurs->contains($professeur)) {
+            $this->professeurs[] = $professeur;
+            $professeur->addClass($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfesseur(Professeur $professeur): self {
+        if ($this->professeurs->removeElement($professeur)) {
+            $professeur->removeClass($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Etudiant>
+     */
+    public function getEtudiants(): Collection
+    {
+        return $this->Etudiants;
+    }
+
+    public function addEtudiant(Etudiant $etudiant): self
+    {
+        if (!$this->Etudiants->contains($etudiant)) {
+            $this->Etudiants[] = $etudiant;
+            $etudiant->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtudiant(Etudiant $etudiant): self
+    {
+        if ($this->Etudiants->removeElement($etudiant)) {
+            // set the owning side to null (unless already changed)
+            if ($etudiant->getClasse() === $this) {
+                $etudiant->setClasse(null);
             }
         }
 

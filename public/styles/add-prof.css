@@ -20,7 +20,8 @@ legend {
 	column-gap: 2%;
 }
 
-.list {
+#professeur_classes,
+#professeur_modules {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;

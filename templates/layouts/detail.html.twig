@@ -1,0 +1,12 @@
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/details-page.css') }}">
+{% endblock %}
+{% block detail %}
+<div id="detail-page">
+    <div id="detail-header">
+        <button type="submit" class="action-btn"><span><img class="action-icon" src="{{ asset('images/icons/cancel.svg') }}"></span>Refuser</button>
+    </div>
+    {% block presentation %}{% endblock %}
+    {% block details %}{% endblock %}
+</div>
+{% endblock %}

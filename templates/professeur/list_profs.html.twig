@@ -12,43 +12,45 @@
 {% block view %}
 
 <div id="list" class="view container">
-    <div id="filter-add">
-        <!--  <select name="filter-modules" id="filter-modules" class="form-control">
-			            <option value="">--- Selectionner Un Module ---</option>
-			        </select> -->
-        <a href="{{ path('app_professeur_add', [], false) }}"><button type="button" class="btn btn-primary add-btn">+ Ajouter</button></a>
-    </div>
-    <div id="table-wrapper">
-        <h2>Liste des professeurs</h2>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">N°</th>
-                    <th scope="col">Nom Professeur</th>
-                    <th scope="col">Grade</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for key, professeur in professeurs %}
-                <tr>
-                    <th scope="row">{{ key + 1 }}</th>
-                    <td>{{ professeur.nomComplet }}</td>
-                    <td>{{ professeur.grade }}</td>
-                    <td class="actions">
-                        <form action="" method="post">
-                            <input type="hidden" name="id" value="{{ professeur.id }}">
-                            <button class="btn btn-primary" type="submit" data-id="{{ professeur.id }}" class="action-btn">
-                                <span><img class="action-icon" src="{{ asset('images/icons/information.svg') }}"></span>Détails</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="navigation">
-        {{ knp_pagination_render(professeurs, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
-    </div>
+	<div id="filter-add">
+		<!--  <select name="filter-modules" id="filter-modules" class="form-control">
+						            <option value="">--- Selectionner Un Module ---</option>
+						        </select> -->
+		<a href="{{ path('app_professeur_add_rp', [], false) }}">
+			<button type="button" class="btn btn-primary add-btn">+ Ajouter</button>
+		</a>
+	</div>
+	<div id="table-wrapper">
+		<h2>Liste des professeurs</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">N°</th>
+					<th scope="col">Nom Professeur</th>
+					<th scope="col">Grade</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, professeur in professeurs %}
+				<tr>
+					<th scope="row">{{ key + 1 }}</th>
+					<td>{{ professeur.nomComplet }}</td>
+					<td>{{ professeur.grade }}</td>
+					<td class="actions">
+						<form action="" method="post">
+							<input type="hidden" name="id" value="{{ professeur.id }}">
+							<button class="btn btn-primary" type="submit" data-id="{{ professeur.id }}" class="action-btn">
+								<span><img class="action-icon" src="{{ asset('images/icons/information.svg') }}"></span>Détails</button>
+						</form>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="navigation">
+		{{ knp_pagination_render(professeurs, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+	</div>
 </div>
 
 {% endblock %}

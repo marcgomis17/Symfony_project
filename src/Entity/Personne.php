@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PersonneRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PersonneRepository;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
 #[InheritanceType("JOINED")]
@@ -27,9 +28,11 @@ class Personne {
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    // #[Assert\NotBlank(message: "Champ obligatoire")]
     #[ORM\Column(type: 'string', length: 50)]
     private $nomComplet;
 
+    // #[Assert\NotBlank(message: "Champ obligatoire")]
     #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private $sexe;
 

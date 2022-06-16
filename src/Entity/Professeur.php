@@ -2,22 +2,28 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProfesseurRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
 class Professeur extends Personne {
+    // #[Assert\NotBlank(message: "Champ obligatoire")]
     #[ORM\Column(type: 'string', length: 255)]
     private $grade;
 
+    // #[Assert\NotBlank(message: "Champ obligatoire")]
     #[ORM\ManyToMany(targetEntity: Module::class, inversedBy: 'professeurs', cascade: ['persist'])]
     private $modules;
 
+    #[ORM\ManyToMany(targetEntity: Classe::class, inversedBy: 'professeurs')]
+    private $classes;
 
     public function __construct() {
         $this->modules = new ArrayCollection();
+        $this->classes = new ArrayCollection();
     }
 
     public function getGrade(): ?string {
@@ -47,6 +53,30 @@ class Professeur extends Personne {
 
     public function removeModule(Module $module): self {
         $this->modules->removeElement($module);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Classe>
+     */
+    public function getClasses(): Collection
+    {
+        return $this->classes;
+    }
+
+    public function addClass(Classe $class): self
+    {
+        if (!$this->classes->contains($class)) {
+            $this->classes[] = $class;
+        }
+
+        return $this;
+    }
+
+    public function removeClass(Classe $class): self
+    {
+        $this->classes->removeElement($class);
 
         return $this;
     }
